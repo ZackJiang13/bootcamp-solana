@@ -10,7 +10,7 @@ describe("bootcamp-voting", () => {
 
   const program = anchor.workspace.bootcampVoting as Program<BootcampVoting>;
 
-  it("Is initialized!", async () => {
+  it("Initialize poll", async () => {
     // Add your test here.
     const tx = await program.methods.initializePool(
       new anchor.BN(1),
