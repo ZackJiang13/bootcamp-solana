@@ -30,4 +30,23 @@ describe("bootcamp-voting", () => {
     expect(poll.pollEnd.toNumber()).to.equal(1722337200);
     expect(poll.candidateAmount.toNumber()).to.equal(0);
   });
+
+
+  it("Initialize candidate", async () => {
+    // Add Red candidate to poll
+    const tx_red = await program.methods.initializeCandidate("Red", new anchor.BN(1)).rpc();
+    const [candidateRedAddress] = PublicKey.findProgramAddressSync([new anchor.BN(1).toArrayLike(Buffer, "le", 8), Buffer.from("Red")], program.programId);
+    console.log("Candidate address:", candidateRedAddress.toBase58());
+
+    const candidateRed = await program.account.candidate.fetch(candidateRedAddress);
+    console.log("Candidate:", candidateRed);
+
+    // Add Blue candidate to poll
+    const tx_blue = await program.methods.initializeCandidate("Blue", new anchor.BN(1)).rpc();
+    const [candidateBlueAddress] = PublicKey.findProgramAddressSync([new anchor.BN(1).toArrayLike(Buffer, "le", 8), Buffer.from("Blue")], program.programId);
+    console.log("Candidate address:", candidateBlueAddress.toBase58());
+
+    const candidateBlue = await program.account.candidate.fetch(candidateBlueAddress);
+    console.log("Candidate:", candidateBlue);
+  });
 });
