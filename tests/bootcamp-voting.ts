@@ -49,4 +49,13 @@ describe("bootcamp-voting", () => {
     const candidateBlue = await program.account.candidate.fetch(candidateBlueAddress);
     console.log("Candidate:", candidateBlue);
   });
+
+
+  it("Vote", async () => {
+    const tx_vote = await program.methods.vote("Red", new anchor.BN(1)).rpc();
+    const [candidateRedAddress] = PublicKey.findProgramAddressSync([new anchor.BN(1).toArrayLike(Buffer, "le", 8), Buffer.from("Red")], program.programId);
+    const candidateRed = await program.account.candidate.fetch(candidateRedAddress);
+    console.log("Candidate:", candidateRed);
+    expect(candidateRed.candidateVotes.toNumber()).to.equal(1);
+  });
 });
