@@ -7,6 +7,7 @@ skip-lint = false
 
 [programs.localnet]
 bootcamp_voting = "iAADC1NuKH31rgthtsKMChE1KHG1QTigB8uYmySRRT7"
+crud = "3jgTRpimcgTARXE5X8JZTguMNE2rdwiZj4miRGgUSFXb"
 
 [registry]
 url = "https://api.apr.dev"
