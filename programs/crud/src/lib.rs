@@ -22,6 +22,11 @@ pub mod crud {
         msg!("Journal entry updated successfully");
         Ok(())
     }
+
+    pub fn delete_journal_entry(_ctx: Context<DeleteJournalEntry>, title: String) -> Result<()> {
+        msg!("Journal entry deleted successfully {}", title);
+        Ok(())
+    }
 }
 
 #[account]
@@ -61,4 +66,19 @@ pub struct UpdateJournalEntry<'info> {
         bump
     )]
     pub journal_entry: Account<'info, JournalEntryState>,
+}
+
+#[derive(Accounts)]
+#[instruction(title: String)]
+pub struct DeleteJournalEntry<'info> {
+    #[account(mut)]
+    pub signer: Signer<'info>,
+    #[account(
+        mut, 
+        seeds = [title.as_bytes().as_ref(), signer.key().as_ref()], 
+        bump,
+        close = signer
+    )]
+    pub journal_entry: Account<'info, JournalEntryState>,
+
 }
