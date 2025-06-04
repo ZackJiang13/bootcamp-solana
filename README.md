@@ -16,4 +16,8 @@ anchor deploy --programs token_sale
 
 # Deploy everything:
 anchor deploy
+
+
+# 4. 查看新生成的 Program ID
+solana address -k target/deploy/crud-keypair.json
 ```
